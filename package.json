@@ -5,10 +5,8 @@
   "main": "keys.js",
   "dependencies": {
     "dotenv": "^5.0.0",
-    "fs": "^0.0.1-security",
     "node-spotify-api": "^1.0.7",
     "request": "^2.83.0",
-    "require": "^2.4.20",
     "twitter": "^1.7.1"
   },
   "devDependencies": {},
