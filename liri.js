@@ -15,14 +15,15 @@ var client = new twitter(keys.twitter);
 console.log(process.argv[2]);
 
 var whatToDo = process.argv[2];
+var searchTerm = "";
 
-if (whatToDo === "my-tweets") {
+if (whatToDo === "my-tweets" || searchTerm === "my-tweets") {
 	tweeter();
-} else if (whatToDo === "spotify-this-song") {
+} else if (whatToDo === "spotify-this-song" || searchTerm === "spotify-this-song") {
 	songPlayer();
-} else if (whatToDo === "movie-this") {
+} else if (whatToDo === "movie-this" || searchTerm === "movie-this") {
 	movieStats();
-}  else if (whatToDo === "do-what-it-says") { 
+}  else if (whatToDo === "do-what-it-says" || searchTerm === "do-what-it-says") { 
 	doIt();
 }
 
@@ -46,10 +47,10 @@ function tweeter() {
 	});
 }
 
-function songPlayer() {
-	var songName = "";
+function songPlayer(songName2) {
+	var songName = "" + songName2;
 
-	if (process.argv[3] === undefined) {
+	if (songName === "") {
 		songName = "The Sign"
 	} else {
 		for (var i = 3; i < process.argv.length; i++) {
@@ -64,13 +65,13 @@ function songPlayer() {
   		console.log(data.tracks.items[0].album.name);
 
 	  	if (err) {
-	    return console.log('Error occurred: ' + err);
+	    	return console.log('Error occurred: ' + err);
 		}
 	});
 } 
 
-function movieStats() {
-	var title = "";
+function movieStats(title2) {
+	var title = "" + title2;
 	
 	if (process.argv[3] == undefined) {
 		title = "Mr.+Nobody";
@@ -111,9 +112,19 @@ function doIt() {
 				fileData += splitData[i] + "+";
 				console.log(fileData);
 			}
-			var whatToDo = splitData[0];
+			whatToDo = splitData[0];
+			console.log(whatToDo);
 			searchTerm = fileData;
 
+			if (whatToDo === "my-tweets") {
+				tweeter(searchTerm);
+			} else if (whatToDo === "spotify-this-song") {
+				songPlayer(searchTerm);
+			} else if (whatToDo === "movie-this") {
+				movieStats(searchTerm);
+			}  else if (whatToDo === "do-what-it-says") { 
+				doIt();
+			}
 
 		});
 }
